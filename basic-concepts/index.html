@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue - Hello World</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/components/message.js"></script>
+    <script src="/components/computed-properties.js"></script>
+    <script src="/components/methods.js"></script>
+    <script src="/components/vmodel.js"></script>
+    <script src="/components/vmodel-checkboxes.js"></script>
+    <script src="/components/emit.js"></script>
+    <script src="/components/parent-data.js"></script>
+    <script src="/components/child-data.js"></script>
+    <script src="/components/child-methods.js"></script>
+</head>
+
+<body>
+    <h1>First Vue App</h1>
+    <div id="app">
+        {{ message }}
+
+        <message></message>
+        <computed-properties></computed-properties>
+        <methods></methods>
+        <vmodel></vmodel>
+        <vmodel-checkboxes></vmodel-checkboxes>
+        <emit @showcarbrand="showCarBrandFromEmitCmd"></emit>
+        <parent-data></parent-data>
+        <child-data ref="childData"></child-data>
+        <child-methods ref="childMethods">
+        </child-methods>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            mounted() {
+                const cmpName = this.$refs.childData.componentName;
+                console.log(cmpName);
+
+                setTimeout(() => {
+                    this.$refs.childMethods.showComponentName()
+                }, 3000);
+            },
+            data() {
+                return {
+                    message: 'Hello World!!!',
+                    appName: 'Iniciando con Vue js'
+                }
+            },
+            methods: {
+                showCarBrandFromEmitCmd(carBrand) {
+                    alert(carBrand);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
